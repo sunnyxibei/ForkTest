@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">ForkTest</string>
+    <string name="execlp">点击测试Execlp命令</string>
 </resources>

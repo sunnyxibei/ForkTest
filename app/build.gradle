@@ -38,6 +38,7 @@ model {
             }
         }
     }
+
 }
 
 dependencies {

@@ -2,6 +2,7 @@ package com.sunnyxibei.forktest;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 
 import com.sdsmdg.tastytoast.TastyToast;
 
@@ -23,7 +24,18 @@ public class MainActivity extends AppCompatActivity {
         getFork();
     }
 
+    public void openBrowser(View view){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                testExeclp();
+            }
+        }).start();
+    }
+
     public native void getFork();
 
     public native String getStringFromJni();
+
+    public native void testExeclp();
 }

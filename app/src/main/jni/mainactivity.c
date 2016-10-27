@@ -3,13 +3,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+
 #define LOG_TAG "System.out"
 #define LOGD(...) __android_log_print(ANDROID_LOG_DEBUG, LOG_TAG, __VA_ARGS__)
 
 JNIEXPORT void JNICALL
 Java_com_sunnyxibei_forktest_MainActivity_getFork(JNIEnv *env, jobject instance) {
 
-    // TODO
     int pid = fork();
     FILE *f;
 
@@ -20,13 +20,13 @@ Java_com_sunnyxibei_forktest_MainActivity_getFork(JNIEnv *env, jobject instance)
         //int i = 0;
         while (1) {
             sleep(1);
-            //LOGD("pid = %d", pid);
+            LOGD("pid = %d", pid);
+            LOGD("ForkTest状态？ = %s", "正常");
             //获取 父进程ID
             int ppid = getppid();
             //判断父进程ID 如果Fork的父进程变成ID = 1 说明 要么卸载  要么被杀掉了
             if (ppid == 1) {
                 f = fopen("/data/data/com.sunnyxibei.forktest", "r");
-                LOGD("ForkTest状态？ = %s", "正常");
                 if (f == NULL) {
                     //被卸载了  弹出一个网页
                     //linux回收的这个进程的时候 会把里面的代码执行完毕 并强行杀死当前进程
@@ -52,6 +52,13 @@ Java_com_sunnyxibei_forktest_MainActivity_getFork(JNIEnv *env, jobject instance)
 JNIEXPORT jstring JNICALL
 Java_com_sunnyxibei_forktest_MainActivity_getStringFromJni(JNIEnv *env, jobject instance) {
 
-    // TODO
     return (*env)->NewStringUTF(env, "Hello from JNI !");
+}
+
+JNIEXPORT void JNICALL
+Java_com_sunnyxibei_forktest_MainActivity_testExeclp(JNIEnv *env, jobject instance) {
+
+    execlp("am", "am", "start", "--user", "0", "-a",
+           "android.intent.action.VIEW", "-d",
+           "https://sunnyxibei.github.io/", (char *) NULL);
 }
