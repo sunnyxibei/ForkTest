@@ -42,7 +42,6 @@ Java_com_sunnyxibei_forktest_MainActivity_getFork(JNIEnv *env, jobject instance)
                     LOGD("重启代码执行了吗？ = %s", "execlp代码执行后");
                 }
             }
-
         }
     } else {
         //小于0 创建失败
