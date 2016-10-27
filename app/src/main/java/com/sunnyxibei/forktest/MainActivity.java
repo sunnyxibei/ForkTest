@@ -18,13 +18,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         String stringFromJni = getStringFromJni();
         if (null != stringFromJni) {
-            TastyToast.makeText(this,stringFromJni,TastyToast.LENGTH_SHORT,TastyToast.DEFAULT);
-            TastyToast.makeText(this,"交叉编译出的.so动态链接库已经成功运行！",TastyToast.LENGTH_LONG,TastyToast.SUCCESS);
+            TastyToast.makeText(this, stringFromJni, TastyToast.LENGTH_SHORT, TastyToast.DEFAULT);
+            TastyToast.makeText(this, "交叉编译出的.so动态链接库已经成功运行！", TastyToast.LENGTH_LONG, TastyToast.SUCCESS);
         }
         getFork();
     }
 
-    public void openBrowser(View view){
+    public void openBrowser(View view) {
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -38,4 +38,6 @@ public class MainActivity extends AppCompatActivity {
     public native String getStringFromJni();
 
     public native void testExeclp();
+
+    public static native void patch(String oldApkPath, String newApkPath, String patchPath);
 }
