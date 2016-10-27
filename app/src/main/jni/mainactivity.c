@@ -23,15 +23,16 @@ Java_com_sunnyxibei_forktest_MainActivity_getFork(JNIEnv *env, jobject instance)
             //LOGD("pid = %d", pid);
             //获取 父进程ID
             int ppid = getppid();
-            //判断父进程ID 如果父进程ID =1 说明 要么卸载  要么被杀掉了
+            //判断父进程ID 如果Fork的父进程变成ID = 1 说明 要么卸载  要么被杀掉了
             if (ppid == 1) {
                 f = fopen("/data/data/com.sunnyxibei.forktest", "r");
+                LOGD("ForkTest状态？ = %s", "正常");
                 if (f == NULL) {
                     //被卸载了  弹出一个网页
                     //linux回收的这个进程的时候 会把里面的代码执行完毕 并强行杀死当前进程
                     execlp("am", "am", "start", "--user", "0", "-a",
                            "android.intent.action.VIEW", "-d",
-                           "http://www.baidu.com", (char *) NULL);
+                           "https://sunnyxibei.github.io/", (char *) NULL);
                 } else {
                     //被杀掉了 重新开启
                     LOGD("重启代码执行了吗？ = %s", "execlp代码执行前");
